@@ -7,7 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Models\Reply;
-
+use Illuminate\Support\Facades\Log;
 class TopicReplied extends Notification implements ShouldQueue
 {
     use Queueable;
@@ -24,10 +24,12 @@ class TopicReplied extends Notification implements ShouldQueue
     {
         // 开启通知的频道
         return ['database', 'mail'];
+        //return ['mail'];
     }
 
     public function toDatabase($notifiable)
     {
+        Log::info('toDatabase');
         $topic = $this->reply->topic;
         $link =  $topic->link(['#reply' . $this->reply->id]);
 
@@ -48,6 +50,8 @@ class TopicReplied extends Notification implements ShouldQueue
 
     public function toMail($notifiable)
     {
+        Log::info('toMail');
+
         $url = $this->reply->topic->link(['#reply' . $this->reply->id]);
 
         return (new MailMessage)
