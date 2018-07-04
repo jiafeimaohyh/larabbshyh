@@ -50,7 +50,19 @@ return [
         'email' => [
             'title' => '邮箱',
         ],
+        'roles' => [
+            'title'  => '用户角色',
+            'output' => function ($value, $model) {
+                $model->load('roles');
+                $result = [];
+                foreach ($model->roles as $role) {
+                    $result[] = $role->name;
+                }
 
+                return empty($result) ? 'N/A' : implode($result, ' | ');
+            },
+            'sortable' => false,
+        ],
         'operation' => [
             'title'  => '管理',
             'sortable' => false,
