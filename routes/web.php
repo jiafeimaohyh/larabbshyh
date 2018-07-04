@@ -57,3 +57,7 @@ Route::resource('replies', 'RepliesController', ['only' => ['store', 'destroy']]
 
 //消息通知显示
 Route::resource('notifications', 'NotificationsController', ['only' => ['index']]);
+
+
+// 访问后台 无权限时 重定向到该地址
+Route::get('permission-denied', 'PagesController@permissionDenied')->name('permission-denied');
