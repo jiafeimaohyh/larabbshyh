@@ -29,7 +29,7 @@ class VerificationCodesController extends Controller
 	            $message = $exception->getException('yunpian')->getMessage();
 	            return $this->response->errorInternal($message ?? '短信发送异常');
 	        }
-
+        }
 	        $key = 'verificationCode_'.str_random(15);
 	        $expiredAt = now()->addMinutes(10);
 	        // 缓存验证码 10分钟过期。
@@ -39,6 +39,6 @@ class VerificationCodesController extends Controller
 	            'key' => $key,
 	            'expired_at' => $expiredAt->toDateTimeString(),
 	        ])->setStatusCode(201);
-    	}
+    	
     }
 }
