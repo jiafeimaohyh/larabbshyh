@@ -2,11 +2,12 @@
 
 namespace App\Models;
 
+use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Auth;
 use Spatie\Permission\Traits\HasRoles;
-class User extends Authenticatable
+class User extends Authenticatable implements JWTSubject
 {
     use Traits\ActiveUserHelper;
     use Traits\LastActivedAtHelper;
@@ -93,4 +94,18 @@ class User extends Authenticatable
     {
         return $this->id == $model->user_id;
     }
+
+    // Rest omitted for brevity
+
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
+
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    
 }
