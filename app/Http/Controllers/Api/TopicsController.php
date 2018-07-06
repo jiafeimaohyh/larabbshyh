@@ -109,5 +109,17 @@ class TopicsController extends Controller
 	    return $this->response->paginator($topics, new TopicTransformer());
 	}
 
+	/**
+	 * [show 话题详情]
+	 * @desc   描述
+	 * @author 加菲猫
+	 * @param  Topic  $topic [description]
+	 * @return [type]        [description]
+	 */
+	public function show(Topic $topic)
+	{
+	    return $this->response->item($topic, new TopicTransformer());
+	}
+
 
 }
