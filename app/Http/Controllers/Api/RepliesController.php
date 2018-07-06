@@ -19,4 +19,24 @@ class RepliesController extends Controller
         return $this->response->item($reply, new ReplyTransformer())
             ->setStatusCode(201);
     }
+
+	/**
+	 * [destroy 删除描述]
+	 * @desc   描述
+	 * @author 加菲猫
+	 * @param  Topic  $topic [description]
+	 * @param  Reply  $reply [description]
+	 * @return [type]        [description]
+	 */
+    public function destroy(Topic $topic, Reply $reply)
+    {
+        if ($reply->topic_id != $topic->id) {
+            return $this->response->errorBadRequest();
+        }
+
+        $this->authorize('destroy', $reply);
+        $reply->delete();
+
+        return $this->response->noContent();
+    }
 }
