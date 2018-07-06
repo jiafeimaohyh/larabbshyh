@@ -46,5 +46,20 @@ class TopicsController extends Controller
 	    return $this->response->item($topic, new TopicTransformer());
 	}
 
+	/**
+	 * [destroy 删除话题]
+	 * @desc   描述
+	 * @author 加菲猫
+	 * @param  Topic  $topic [description]
+	 * @return [type]        [description]
+	 */
+	public function destroy(Topic $topic)
+	{
+	    $this->authorize('update', $topic);
+
+	    $topic->delete();
+	    return $this->response->noContent();
+	}
+
 
 }
