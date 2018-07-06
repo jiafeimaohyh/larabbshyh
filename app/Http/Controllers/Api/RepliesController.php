@@ -6,6 +6,8 @@ use App\Models\Topic;
 use App\Models\Reply;
 use App\Http\Requests\Api\ReplyRequest;
 use App\Transformers\ReplyTransformer;
+use App\Models\User;
+
 
 class RepliesController extends Controller
 {
@@ -39,4 +41,32 @@ class RepliesController extends Controller
 
         return $this->response->noContent();
     }
+
+    /**
+     * [index 某个话题回复列表]
+     * @desc   描述
+     * @author 加菲猫
+     * @param  Topic  $topic [description]
+     * @return [type]        [description]
+     */
+    public function index(Topic $topic)
+	{
+	    $replies = $topic->replies()->paginate(20);
+
+	    return $this->response->paginator($replies, new ReplyTransformer());
+	}
+
+	/**
+	 * [userIndex 某个用户回复列表]
+	 * @desc   描述
+	 * @author 加菲猫
+	 * @param  User   $user [description]
+	 * @return [type]       [description]
+	 */
+	public function userIndex(User $user)
+	{
+	    $replies = $user->replies()->paginate(20);
+
+	    return $this->response->paginator($replies, new ReplyTransformer());
+	}
 }
