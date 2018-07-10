@@ -67,13 +67,17 @@ $api->version('v1',
 		$api->post('captchas', 'CaptchasController@store')
 		    ->name('api.captchas.store');
 
-		// 第三方登录 微信
+		// 第三方登录 微信 （包括不存在账户 进行注册的功能）
 		$api->post('socials/{social_type}/authorizations', 'AuthorizationsController@socialStore')
 		    ->name('api.socials.authorizations.store');
-		    
-        // 小程序登录
+
+        // 小程序登录 （没有注册功能）
         $api->post('weapp/authorizations', 'AuthorizationsController@weappStore')
             ->name('api.weapp.authorizations.store');   
+
+        // 小程序注册
+        $api->post('weapp/users', 'UsersController@weappStore')
+            ->name('api.weapp.users.store');
              
 		// 登录
 		$api->post('authorizations', 'AuthorizationsController@store')
