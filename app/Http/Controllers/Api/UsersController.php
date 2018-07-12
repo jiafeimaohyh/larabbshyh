@@ -50,7 +50,17 @@ class UsersController extends Controller
                     ])
                     ->setStatusCode(201);
     }
-
+    /**
+     * [show 用户详情]
+     * @desc   描述
+     * @author 加菲猫
+     * @param  User   $user [description]
+     * @return [type]       [description]
+     */
+    public function show(User $user)
+    {
+        return $this->response->item($user, new UserTransformer());
+    }
     /**
      * [weappStore 小程序注册]
      * @desc   描述
